@@ -1,0 +1,241 @@
+#include <SoftwareSerial.h>
+SoftwareSerial BT(10, 11); //TX, RX  pins of arduino respetively
+int command;
+int light1 = 2;
+int light2 = 3;
+int light3 = 4;
+int light4 = 5;
+int fan1 = 6;
+int fan2 = 7;
+int led1 = 8;
+int ac1 = 9;
+
+int lightstate1 =0;
+int lightstate2 =0;
+int lightstate3 =0;
+int lightstate4 =0;
+int fanstate1 =0;
+int fanstate2 =0;
+int ledstate1 =0;
+int acstate1 =0;
+int allstate = 0;
+int received = 0;
+
+void setup()
+{
+ BT.begin(9600);
+ Serial.begin(9600);
+  pinMode(light1, OUTPUT);
+  //val1 = digitalRead(light1);
+  //BT.println(val1);
+  
+  pinMode(light2, OUTPUT);
+  //val2 = digitalRead(light2);
+  //BT.println(val2);
+  pinMode(light3, OUTPUT);
+  pinMode(light4, OUTPUT);
+  pinMode(fan1, OUTPUT);
+  pinMode(fan2, OUTPUT);
+  pinMode(led1, OUTPUT);
+  pinMode(ac1, OUTPUT);
+}
+
+void loop() {
+  while(BT.available()> 0 ) {
+  //Check if there is an available byte to read
+  //delay(10); //Delay added to make thing stable
+   received = BT.read(); //Conduct a serial read
+   delay(10);
+   //char Rec = char(received); //build the string.
+
+    //if (Rec !='0')
+    //{
+    //  BT.println(Rec); //This is to visualise the received character
+    //}
+  
+  } 
+ 
+  if (lightstate1 == 0 && received =='1')
+  {
+    digitalWrite(light1,HIGH);
+    //BT.println("ON");
+    lightstate1 = 1;
+    received = 0; 
+  }
+ else if (lightstate1 == 1 && received =='1')
+  {
+    digitalWrite(light1, LOW);
+    //BT.println("OFF");
+    lightstate1 = 0;
+    received = 0; 
+  }
+  
+  else if (lightstate2 == 0 && received =='2')
+  {
+    digitalWrite(light2, HIGH);
+    //BT.println("ON");
+    lightstate2 = 1;
+    received = 0; 
+  }
+ else if (lightstate2 == 1 && received =='2')
+  {
+    digitalWrite(light2, LOW);
+    //BT.println("OFF");
+    lightstate2 = 0;
+    received = 0; 
+  }
+   else if (lightstate3 == 0 && received =='3')
+  {
+    digitalWrite(light3, HIGH);
+    //BT.println("ON");
+    lightstate3 = 1;
+    received = 0; 
+  }
+ else if (lightstate3 == 1 && received =='3')
+  {
+    digitalWrite(light3, LOW);
+    //BT.println("OFF");
+    lightstate3 = 0;
+    received = 0; 
+  }
+
+   else if (lightstate4 == 0 && received =='4')
+  {
+    digitalWrite(light4, HIGH);
+    //BT.println("ON");
+    lightstate4 = 1;
+    received = 0; 
+  }
+ else if (lightstate4 == 1 && received =='4')
+  {
+    digitalWrite(light4, LOW);
+    //BT.println("OFF");
+    lightstate4 = 0;
+    received = 0; 
+  }
+
+ else if (fanstate1 == 0 && received =='5')
+  {
+    digitalWrite(fan1, HIGH);
+    //BT.println("ON");
+    fanstate1 = 1;
+    received = 0; 
+  }
+ else if (fanstate1 == 1 && received =='5')
+  {
+    digitalWrite(fan1, LOW);
+    //BT.println("OFF");
+    fanstate1 = 0;
+    received = 0; 
+  }
+
+else if (fanstate2 == 0 && received =='6')
+  {
+    digitalWrite(fan2, HIGH);
+    //BT.println("ON");
+    fanstate2 = 1;
+    received = 0; 
+  }
+ else if (fanstate2 == 1 && received =='6')
+  {
+    digitalWrite(fan2, LOW);
+    //BT.println("OFF");
+    fanstate2 = 0;
+    received = 0; 
+  }
+
+
+else if (ledstate1 == 0 && received =='7')
+  {
+    digitalWrite(led1, HIGH);
+    //BT.println("ON");
+    ledstate1 = 1;
+    received = 0; 
+  }
+ else if (ledstate1 == 1 && received =='7')
+  {
+    digitalWrite(led1, LOW);
+    //BT.println("OFF");
+    ledstate1 = 0;
+    received = 0; 
+  }
+
+  else if (acstate1 == 0 && received =='8')
+  {
+    digitalWrite(ac1, HIGH);
+    //BT.println("ON");
+    acstate1 = 1;
+    received = 0; 
+  }
+ else if (acstate1 == 1 && received =='8')
+  {
+    digitalWrite(ac1, LOW);
+    //BT.println("OFF");
+    acstate1 = 0;
+    received = 0; 
+  }
+  
+  //if(lightstate1 == 0 && received == '1') //this command will be given as an input to switch on light1
+  //{
+   // digitalWrite(light1, HIGH);
+  //  BT.println("ON");
+  //  lightstate1 = 1;
+  //  received = 0;
+  //}
+ // else if(lightstate1 == 1 && received == '1') //this command will be given as an input to switch off light1 simillarly other commands work
+  //{
+   //digitalWrite(light1, LOW);
+   //  BT.println("OFF");
+   // lightstate1 = 0;
+   // received = 0;
+  //}
+  //else if (lightstate2 == 0 && received == '2')
+  //{
+   // digitalWrite(light2, HIGH);
+    //BT.println("ON");
+   // lightstate2 = 1;
+   // received = 0;
+  //}
+ // else if ( lightstate2 == 1 && received == '2')
+// {
+  // digitalWrite(light2, LOW);
+  //  BT.println("OFF");
+  //  lightstate2 = 0;
+  //  received = 0;
+ //}
+  
+  else if (allstate == 0 && received == 'a') //using this command you can switch on all devices
+ {
+ 
+   digitalWrite (light1, HIGH);
+   digitalWrite (light2, HIGH);
+   digitalWrite (light3, HIGH);
+    digitalWrite (light4, HIGH);
+    digitalWrite (fan1, HIGH);
+     digitalWrite (fan2, HIGH);
+     digitalWrite (led1, HIGH);
+   digitalWrite (ac1, HIGH);
+     //BT.println("OFF");
+    allstate = 1;
+    received = 0; 
+   
+ }
+  else if (allstate == 1 && received == 'a')//using this command you can switch off all devices
+ {
+  //BT.println("ON");
+   
+   digitalWrite (light1, LOW);
+   digitalWrite (light2, LOW);
+   digitalWrite (light3, LOW);
+   digitalWrite (light4, LOW);
+   digitalWrite (fan1, LOW);
+   digitalWrite (fan2, LOW);
+   digitalWrite (led1, LOW);
+   digitalWrite (ac1, LOW);
+    allstate = 0;
+    received = 0; 
+ }
+} //Reset the variable
+//you can add other command to control addition devices by adding an elseif 
+//and the additions commands you add in sketch can be given through voice regonisation as i have created the app buttons only to control three devic
+//thankyou;github
